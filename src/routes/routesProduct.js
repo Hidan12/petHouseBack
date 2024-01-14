@@ -8,6 +8,7 @@ router.get("/offerProduc", controllerProduct.offerProduct);
 router.get("/listProduct", controllerProduct.listProducts);
 router.get("/filterProducts", controllerProduct.filterProducts);
 router.get("/detail", controllerProduct.detailProduct);
+router.get("/search", controllerProduct.searchProduct)
 
 router.get("/createProduct", controllerProduct.createProduct);
 

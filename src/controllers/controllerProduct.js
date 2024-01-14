@@ -1,5 +1,5 @@
 const bd = require("../database/models")
-
+const { Op } = require('sequelize')
 module.exports = {
     offerProduct: async(req, res)=>{
         let product = await bd.Producto.findAll({
@@ -132,6 +132,23 @@ module.exports = {
             categorias: product.Categorias.categoria
         })
     },
+    searchProduct: async(req,res)=>{
+        const search = req.query.search;
+        const searchBD = await bd.Producto.findAll({
+            where: {
+                nombre: {
+                [Op.like]: `%${search}%`
+            }}
+        });
+        if (searchBD) {
+            res.json(searchBD)
+        }else{
+            res.json({
+                error: "no found"
+            })
+        }
+
+    },
     createProduct: async(req, res)=>{
         const brand = await bd.Marca.findAll();
         const petType = await bd.Tipo_mascota.findAll();
@@ -141,5 +158,6 @@ module.exports = {
             tipoMascotas: petType,
             categorias: category
         })
-    }
+    },
+
 }
